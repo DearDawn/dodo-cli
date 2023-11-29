@@ -1,0 +1,24 @@
+{
+  "name": "dodo-cli",
+  "version": "0.0.1",
+  "description": "呆呆的 cli 工具",
+  "main": "index.js",
+  "scripts": {},
+  "bin": {
+    "dodo-cli": "./index.js"
+  },
+  "keywords": [],
+  "author": "dearDawn",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^10.0.1",
+    "inquirer": "^8.2.5",
+    "ora": "^5.4.1",
+    "simple-git": "^3.21.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7"
+  }
+}
