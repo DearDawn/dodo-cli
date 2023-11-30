@@ -8,6 +8,7 @@ const ora = require('ora');
 const chalk = require('chalk');
 const { copyFolderSync, traverseFolderAndReplaceString } = require('./util')
 const { simpleGit } = require('simple-git');
+const { version } = require('./package.json');
 
 const getTemplateRepoUrl = (source = '') => {
   if (source === 'gitclone') {
@@ -17,7 +18,7 @@ const getTemplateRepoUrl = (source = '') => {
   return 'https://github.com/DearDawn/dodo-template.git';
 }
 
-program.version('0.0.1', '-v, --version')
+program.version(version, '-v, --version')
 
 program
   .command('info')
