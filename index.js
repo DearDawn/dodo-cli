@@ -9,7 +9,13 @@ const chalk = require('chalk');
 const { copyFolderSync, traverseFolderAndReplaceString } = require('./util')
 const { simpleGit } = require('simple-git');
 
-const templateRepoUrl = 'https://gitclone.com/github.com/DearDawn/dodo-template.git';
+const getTemplateRepoUrl = (source = '') => {
+  if (source === 'gitclone') {
+    return 'https://gitclone.com/github.com/DearDawn/dodo-template.git';
+  }
+
+  return 'https://github.com/DearDawn/dodo-template.git';
+}
 
 program.version('0.0.1', '-v, --version')
 
@@ -30,13 +36,14 @@ program
       {
         type: 'input',
         name: 'project_name',
-        message: 'Project name:',
+        message: '项目名称:',
         default: project,
       },
       {
         type: 'list',
         name: 'template',
-        message: 'Choose a template:',
+        message: '选择一个模板:',
+        default: 'react-multi-page-app',
         choices: [
           {
             name: "react-multi-page-app",
@@ -44,10 +51,28 @@ program
             short: "react 多页应用"
           },
         ]
+      },
+      {
+        type: 'list',
+        name: 'source',
+        message: '选择 github 源：',
+        default: 'default',
+        choices: [
+          {
+            name: "default",
+            value: "default",
+            short: "默认"
+          },
+          {
+            name: "gitclone",
+            value: "gitclone",
+            short: "gitclone"
+          }
+        ]
       }
     ]).then(async (answers) => {
       console.log('[dodo] ', 'answers', answers);
-      const { template, project_name } = answers
+      const { template, project_name, source } = answers
       const targetPath = path.join(process.cwd(), project_name);
       const tempPath = path.join(process.cwd(), `.temp_${project_name}`);
       const spinner = ora(`下载模板中：${template}`).start();
@@ -58,7 +83,7 @@ program
       }
 
       // 克隆模板仓库到目标路径
-      simpleGit().clone(templateRepoUrl, tempPath, (err) => {
+      simpleGit().clone(getTemplateRepoUrl(source), tempPath, (err) => {
         if (err) {
           spinner.fail(chalk.red('下载失败'))
           return;
