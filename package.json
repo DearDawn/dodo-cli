@@ -1,6 +1,6 @@
 {
   "name": "dodo-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "呆呆的 cli 工具",
   "main": "index.js",
   "scripts": {},
